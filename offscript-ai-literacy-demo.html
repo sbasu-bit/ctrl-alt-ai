@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f5ef">
+  <title>OFFSCRIPT — AI, without the instruction manual</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+    :root{--ink:#20231f;--muted:#6c7069;--paper:#f7f5ef;--white:#fffefa;--lime:#d8f36a;--purple:#c9b9ff;--pink:#ffb8a8;--line:#e6e2d8;--dark:#242722}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif}
+    button,a{font:inherit}a{color:inherit;text-decoration:none}.wrap{width:min(1160px,calc(100% - 48px));margin:auto}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+    .logo{font:700 21px 'Space Grotesk';letter-spacing:-1.2px}.logo span{display:inline-block;background:var(--lime);padding:2px 7px;border-radius:6px;margin-right:5px}
+    .navlinks{display:flex;gap:30px;font-size:13px;color:#53574f}.navlinks a:hover{color:#000}
+    .navright{display:flex;align-items:center;gap:12px}.pill{font:11px 'DM Mono';letter-spacing:.04em;border:1px solid var(--line);border-radius:99px;padding:9px 13px}
+    .menu{display:none;background:none;border:0;font-size:23px}
+    .hero{padding:76px 0 64px;display:grid;grid-template-columns:1.12fr .88fr;gap:55px;align-items:center}
+    .eyebrow{font:11px 'DM Mono';letter-spacing:.13em;text-transform:uppercase;color:#686d61;display:flex;align-items:center;gap:9px}.dot{width:8px;height:8px;border-radius:50%;background:#94b52c;display:inline-block}
+    h1{font:600 clamp(54px,7.4vw,94px)/.98 'Space Grotesk';letter-spacing:-.075em;margin:24px 0 22px;max-width:680px}
+    h1 em{font-style:normal;position:relative;z-index:0;white-space:nowrap}h1 em:after{content:"";position:absolute;left:0;bottom:4px;width:100%;height:17px;background:var(--lime);z-index:-1;transform:rotate(-1.7deg)}
+    .hero-copy{font-size:17px;line-height:1.7;color:#62665e;max-width:480px;margin:0 0 28px}
+    .actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:8px;padding:14px 19px;background:var(--dark);color:white;font-weight:700;font-size:13px;cursor:pointer;transition:transform .2s,background .2s}.btn:hover{transform:translateY(-2px);background:#41463d}.btn.secondary{background:transparent;color:var(--ink);border:1px solid #d9d5ca}
+    .hero-art{min-height:390px;position:relative;display:grid;place-items:center}
+    .orbit{width:min(100%,420px);aspect-ratio:1;border-radius:50%;background:#eeeadf;position:relative;display:grid;place-items:center}
+    .orbit:before,.orbit:after{content:"";position:absolute;border:1px dashed #c9c5b9;border-radius:50%;inset:11%}.orbit:after{inset:23%}
+    .core{width:43%;aspect-ratio:1;background:var(--purple);border-radius:42% 58% 53% 47%/49% 41% 59% 51%;display:grid;place-items:center;transform:rotate(-12deg);box-shadow:12px 15px 0 #d7d0c4}
+    .core b{font:700 44px 'Space Grotesk';transform:rotate(12deg);letter-spacing:-4px}
+    .sticker{position:absolute;padding:12px 15px;border:1px solid #242722;border-radius:9px;background:var(--white);font:11px 'DM Mono';box-shadow:4px 5px 0 #242722}
+    .s1{top:8%;right:1%;transform:rotate(7deg);background:var(--pink)}.s2{bottom:12%;left:0;transform:rotate(-7deg);background:var(--lime)}.s3{right:0;bottom:26%;transform:rotate(5deg)}
+    .spark{position:absolute;font-size:26px}.sp1{top:18%;left:11%}.sp2{right:15%;top:42%}.sp3{bottom:12%;right:22%}
+    .ticker{background:var(--dark);color:#f8f6ed;padding:14px 0;overflow:hidden;white-space:nowrap;font:11px 'DM Mono';letter-spacing:.12em}
+    .ticker span{color:var(--lime);padding:0 22px}
+    .section{padding:88px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:32px}
+    .kicker{font:11px 'DM Mono';letter-spacing:.13em;text-transform:uppercase;color:#85897e}
+    h2{font:600 clamp(34px,4.4vw,52px)/1.05 'Space Grotesk';letter-spacing:-.055em;margin:10px 0 0}
+    .section-intro{max-width:330px;color:var(--muted);font-size:14px;line-height:1.65;margin:0}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{min-height:270px;border-radius:13px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s}
+    .card:hover{transform:translateY(-5px)}.card:nth-child(1){background:var(--lime)}.card:nth-child(2){background:var(--purple)}.card:nth-child(3){background:var(--pink)}
+    .card-top{display:flex;justify-content:space-between;align-items:center}.number{font:11px 'DM Mono';opacity:.7}.icon{font-size:25px}
+    .card h3{font:600 27px/1.05 'Space Grotesk';letter-spacing:-1.2px;margin:36px 0 9px}.card p{font-size:13px;line-height:1.55;max-width:270px;margin:0;color:#42463f}
+    .card-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:25px;font:11px 'DM Mono';text-transform:uppercase}
+    .arrow{width:31px;height:31px;border:1px solid #3338;border-radius:50%;display:grid;place-items:center;font-size:17px}
+    .lab{background:#eae6dc;border-radius:16px;padding:42px;display:grid;grid-template-columns:.8fr 1.2fr;gap:45px;align-items:center}
+    .lab h2{font-size:42px}.lab p{color:#62665e;font-size:14px;line-height:1.7;max-width:350px}
+    .scenario{background:var(--white);border:1px solid #dedacf;border-radius:12px;padding:25px;box-shadow:7px 7px 0 #d7d2c6}
+    .scenario-label{font:10px 'DM Mono';letter-spacing:.12em;color:#85897e;text-transform:uppercase}
+    .scenario h3{font:600 23px 'Space Grotesk';letter-spacing:-.7px;margin:13px 0}
+    .scenario p{font-size:14px;line-height:1.65;color:#62665e;margin:0 0 19px;max-width:none}
+    .choices{display:grid;gap:9px}.choice{border:1px solid #e2ded4;background:#fffefa;border-radius:8px;padding:12px 14px;text-align:left;font-size:13px;cursor:pointer;color:var(--ink);transition:.15s}
+    .choice:hover{border-color:#777}.choice.selected{background:#eef5d2;border-color:#a3bd48}
+    .feedback{display:none;margin-top:14px;padding:13px;border-radius:8px;background:#f0eee7;font-size:12px;line-height:1.6;color:#50554b}.feedback.show{display:block}
+    .impact{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+    .impact-box{padding:26px;border:1px solid var(--line);border-radius:12px;background:var(--white)}
+    .impact-box strong{font:600 31px 'Space Grotesk';letter-spacing:-1.5px;display:block;margin-bottom:7px}.impact-box p{font-size:12px;color:var(--muted);line-height:1.6;margin:0}
+    .quote{padding:84px 0;text-align:center}.quote blockquote{font:500 clamp(28px,4vw,46px)/1.2 'Space Grotesk';letter-spacing:-.045em;max-width:850px;margin:20px auto}.quote blockquote span{background:var(--purple);padding:0 7px}
+    .cta{background:var(--lime);border-radius:15px;padding:48px;display:flex;align-items:center;justify-content:space-between;gap:30px;margin-bottom:80px}
+    .cta h2{font-size:clamp(34px,4vw,48px);max-width:540px}.cta p{font-size:13px;color:#555c44;margin:12px 0 0}
+    footer{border-top:1px solid var(--line);padding:25px 0 35px;display:flex;justify-content:space-between;gap:20px;color:#777b72;font-size:11px}
+    footer strong{font:700 15px 'Space Grotesk';color:var(--ink)}
+    @media(max-width:760px){.wrap{width:min(100% - 34px,560px)}.navlinks,.navright .pill{display:none}.menu{display:block}.hero{grid-template-columns:1fr;padding:55px 0 40px;gap:5px}.hero-art{min-height:320px}.orbit{width:min(84%,340px)}.section{padding:65px 0}.section-head{display:block}.section-intro{margin-top:15px}.cards{grid-template-columns:1fr}.card{min-height:225px}.lab{grid-template-columns:1fr;padding:26px;gap:22px}.lab h2{font-size:35px}.impact{grid-template-columns:1fr 1fr}.cta{padding:30px;display:block}.cta .btn{margin-top:22px}footer{flex-direction:column}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+  </style>
+</head>
+<body>
+  <header class="wrap nav">
+    <a class="logo" href="#"><span>O/</span> OFFSCRIPT</a>
+    <nav class="navlinks" aria-label="Main navigation"><a href="#learn">Explore</a><a href="#lab">Try it</a><a href="#why">Our why</a></nav>
+    <div class="navright"><span class="pill">AI LITERACY, IRL ↗</span><a class="btn" href="#learn">Start exploring</a></div>
+    <button class="menu" aria-label="Menu" onclick="document.querySelector('.navlinks').classList.toggle('mobile-open')">☰</button>
+  </header>
+  <main>
+    <section class="wrap hero">
+      <div>
+        <div class="eyebrow"><i class="dot"></i> THE INTERNET CHANGED. LET'S CATCH UP.</div>
+        <h1>AI is here.<br>Stay <em>in the know.</em></h1>
+        <p class="hero-copy">A no-judgment space to figure out how AI works, where it gets things wrong, and how to make it work for people — not the other way around.</p>
+        <div class="actions"><a class="btn" href="#learn">Find your starting point ↗</a><a class="btn secondary" href="#lab">Try a 30-sec challenge</a></div>
+      </div>
+      <div class="hero-art" aria-label="Abstract illustration of an AI-inspired shape">
+        <div class="orbit"><div class="core"><b>AI?</b></div><span class="spark sp1">✳</span><span class="spark sp2">✦</span><span class="spark sp3">↗</span></div>
+        <div class="sticker s1">NOT MAGIC. NOT NOTHING.</div><div class="sticker s2">ASK BETTER QUESTIONS →</div><div class="sticker s3">HUMAN CHECK: ON ✓</div>
+      </div>
+    </section>
+    <div class="ticker">LESS HYPE, MORE KNOW-HOW <span>✳</span> QUESTION THE OUTPUT <span>✳</span> MAKE TECH MORE HUMAN <span>✳</span> LESS HYPE, MORE KNOW-HOW <span>✳</span> QUESTION THE OUTPUT <span>✳</span></div>
+    <section class="wrap section" id="learn">
+      <div class="section-head"><div><div class="kicker">01 / PICK A PATH</div><h2>Big topic. Small steps.</h2></div><p class="section-intro">No lectures, no gatekeeping. Start with what you're curious about and build confidence as you go.</p></div>
+      <div class="cards">
+        <article class="card"><div class="card-top"><span class="number">FIELD NOTES / 01</span><span class="icon">✳</span></div><div><h3>How AI actually works</h3><p>Get past the buzzwords. Explore models, prompts, training data, and why AI sometimes makes things up.</p></div><div class="card-bottom"><span>Understand the basics</span><span class="arrow">↗</span></div></article>
+        <article class="card"><div class="card-top"><span class="number">FIELD NOTES / 02</span><span class="icon">◒</span></div><div><h3>Who's being left out?</h3><p>Unpack bias, accessibility, and the people behind the data. Fair technology starts with better questions.</p></div><div class="card-bottom"><span>Think more critically</span><span class="arrow">↗</span></div></article>
+        <article class="card"><div class="card-top"><span class="number">FIELD NOTES / 03</span><span class="icon">⌁</span></div><div><h3>Use AI with intention</h3><p>Practice checking sources, protecting privacy, and deciding when the best tool is your own brain.</p></div><div class="card-bottom"><span>Build good habits</span><span class="arrow">↗</span></div></article>
+      </div>
+    </section>
+    <section class="wrap" id="lab">
+      <div class="lab">
+        <div><div class="kicker">02 / THE QUICK THINK LAB</div><h2>Pause the scroll.<br>Test your instincts.</h2><p>AI literacy isn't memorizing definitions. It's knowing what to question when a tool gives you an answer.</p><div class="pill" style="display:inline-block">ONE SCENARIO · NO GRADES</div></div>
+        <div class="scenario">
+          <div class="scenario-label">REAL-LIFE SCENARIO / 01</div>
+          <h3>An AI tool gives you a super-confident answer.</h3>
+          <p>You're using an AI chatbot for a school project. It gives you a statistic and names a study, but you haven't heard of the study before. What's your next move?</p>
+          <div class="choices">
+            <button class="choice" data-correct="false">A. Use it. The answer sounds specific, so it's probably reliable.</button>
+            <button class="choice" data-correct="true">B. Find the original study and check whether it really supports the claim.</button>
+            <button class="choice" data-correct="false">C. Ask the same chatbot if it's sure, then trust its confirmation.</button>
+          </div>
+          <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+    <section class="wrap section" id="why">
+      <div class="section-head"><div><div class="kicker">03 / WHY OFFSCRIPT EXISTS</div><h2>Tech should make<br>room for everyone.</h2></div><p class="section-intro">AI is shaping school, work, creativity, and everyday life. Everyone deserves the tools to understand it — not just the people building it.</p></div>
+      <div class="impact">
+        <div class="impact-box"><strong>Curiosity first.</strong><p>Ask questions without feeling like you should already know the answers. That's where learning starts.</p></div>
+        <div class="impact-box"><strong>People over hype.</strong><p>Look at who benefits, who might be harmed, and whose perspective is missing.</p></div>
+        <div class="impact-box"><strong>Access is essential.</strong><p>Clear language, thoughtful design, and accessibility belong in technology from day one.</p></div>
+        <div class="impact-box"><strong>Your judgment matters.</strong><p>AI can help you think. It shouldn't do all the thinking for you.</p></div>
+      </div>
+    </section>
+    <section class="wrap quote"><div class="kicker">A REMINDER TO TAKE WITH YOU</div><blockquote>Don't just learn how to use AI. Learn how to ask <span>whether you should.</span></blockquote><div class="kicker">STAY CURIOUS. STAY HUMAN.</div></section>
+    <section class="wrap cta"><div><div class="kicker">YOUR NEXT QUESTION STARTS HERE</div><h2>Curious is a pretty good place to start.</h2><p>Explore at your own pace. Bring your questions. Leave the hype at the door.</p></div><a class="btn" href="#learn">Explore the paths ↗</a></section>
+  </main>
+  <footer class="wrap"><strong>O/ OFFSCRIPT</strong><span>AI literacy for real life.</span><span>Made for curious minds · A student-led concept</span></footer>
+  <script>
+    const choices = document.querySelectorAll('.choice');
+    const feedback = document.getElementById('feedback');
+    choices.forEach(choice => choice.addEventListener('click', () => {
+      choices.forEach(c => c.classList.remove('selected'));
+      choice.classList.add('selected');
+      feedback.classList.add('show');
+      if (choice.dataset.correct === 'true') {
+        feedback.textContent = 'Exactly. AI can produce convincing but inaccurate information. Verify important claims against the original source instead of relying on confidence or a second answer from the same tool.';
+      } else {
+        feedback.textContent = 'Good instinct to pause. A confident tone is not proof, and asking the same system to verify itself is not independent confirmation. Look for the original source and check it directly.';
+      }
+    }));
+  </script>
+</body>
+</html>
