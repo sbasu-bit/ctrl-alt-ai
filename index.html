@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f7f5ef">
-  <title>OFFSCRIPT — AI, without the instruction manual</title>
+  <title>OFFSCRIPT — AI literacy for real life</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
     :root{--ink:#20231f;--muted:#6c7069;--paper:#f7f5ef;--white:#fffefa;--lime:#d8f36a;--purple:#c9b9ff;--pink:#ffb8a8;--line:#e6e2d8;--dark:#242722}
@@ -59,16 +59,69 @@
     .cta h2{font-size:clamp(34px,4vw,48px);max-width:540px}.cta p{font-size:13px;color:#555c44;margin:12px 0 0}
     footer{border-top:1px solid var(--line);padding:25px 0 35px;display:flex;justify-content:space-between;gap:20px;color:#777b72;font-size:11px}
     footer strong{font:700 15px 'Space Grotesk';color:var(--ink)}
+
+    .navlinks.mobile-open{display:flex;position:absolute;z-index:10;top:76px;left:0;right:0;background:var(--paper);padding:22px 24px;border-bottom:1px solid var(--line);flex-direction:column;gap:18px}
+    .tool-section{padding:76px 0}.tool-panel{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:30px;box-shadow:6px 6px 0 #e5e0d5}
+    .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:25px}.tool-card{background:#eeeadf;border-radius:13px;padding:25px;min-width:0}
+    .tool-card h3{font:600 25px/1.08 'Space Grotesk';letter-spacing:-.8px;margin:12px 0}.tool-card p{font-size:13px;line-height:1.65;color:#62665e}
+    .tag{font:10px 'DM Mono';letter-spacing:.1em;text-transform:uppercase;color:#777b72}.field{display:grid;gap:7px;margin:14px 0}.field label{font:11px 'DM Mono';text-transform:uppercase;letter-spacing:.07em}.field input,.field textarea,.field select{width:100%;border:1px solid #d9d5ca;background:#fffefa;border-radius:8px;padding:12px;color:var(--ink);font:13px 'DM Sans';outline-offset:2px}.field textarea{min-height:86px;resize:vertical}
+    .result{display:none;margin-top:14px;padding:15px;border-radius:9px;background:#eef5d2;font-size:13px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}.result.show{display:block}
+    .mini-btn{border:1px solid var(--dark);background:var(--dark);color:white;border-radius:8px;padding:11px 15px;font-size:12px;font-weight:700;cursor:pointer}.mini-btn.alt{background:transparent;color:var(--ink)}
+    .check-list{display:grid;gap:10px;margin:18px 0}.check-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5}.check-row input{accent-color:#718b25;margin-top:3px}
+    .progress-track{height:8px;background:#e7e3d9;border-radius:99px;overflow:hidden;margin:13px 0}.progress-fill{height:100%;width:0;background:#9dbb3e;transition:width .25s}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tab{border:1px solid #d9d5ca;background:transparent;padding:9px 12px;border-radius:99px;font:11px 'DM Mono';cursor:pointer}.tab.active{background:var(--dark);color:white;border-color:var(--dark)}
+    .glossary-tools{display:flex;gap:12px;align-items:center;margin:20px 0}.glossary-tools input{flex:1;min-width:0;border:1px solid #d9d5ca;border-radius:8px;padding:13px;background:var(--white);font:13px 'DM Sans'}
+    .term-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.term{padding:18px;background:var(--white);border:1px solid var(--line);border-radius:10px}.term strong{font:600 18px 'Space Grotesk'}.term p{font-size:12px;line-height:1.6;color:var(--muted);margin:7px 0 0}
+    .scenario-count{display:flex;justify-content:space-between;gap:10px;font:10px 'DM Mono';color:#85897e;text-transform:uppercase}.scenario-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px}
+    .choice:focus-visible,.btn:focus-visible,.mini-btn:focus-visible,.tab:focus-visible{outline:3px solid #829d35;outline-offset:3px}
+    @media(max-width:760px){.tool-grid,.term-list{grid-template-columns:1fr}.tool-section{padding:58px 0}.tool-panel{padding:20px}.tool-card{padding:20px}.glossary-tools{flex-direction:column;align-items:stretch}}
     @media(max-width:760px){.wrap{width:min(100% - 34px,560px)}.navlinks,.navright .pill{display:none}.menu{display:block}.hero{grid-template-columns:1fr;padding:55px 0 40px;gap:5px}.hero-art{min-height:320px}.orbit{width:min(84%,340px)}.section{padding:65px 0}.section-head{display:block}.section-intro{margin-top:15px}.cards{grid-template-columns:1fr}.card{min-height:225px}.lab{grid-template-columns:1fr;padding:26px;gap:22px}.lab h2{font-size:35px}.impact{grid-template-columns:1fr 1fr}.cta{padding:30px;display:block}.cta .btn{margin-top:22px}footer{flex-direction:column}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+
+    /* V3 learning academy additions — intentionally reuse the original visual system */
+    .academy-shell{background:#eeeadf;border-radius:16px;padding:36px}
+    .academy-grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:22px;align-items:start}
+    .lesson-list{display:grid;gap:10px}
+    .lesson-button{width:100%;border:1px solid #d9d5ca;background:var(--white);border-radius:10px;padding:16px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--ink)}
+    .lesson-button.active{background:var(--lime);border-color:#b8cb65}
+    .lesson-button strong{display:block;font:600 16px 'Space Grotesk';margin-bottom:4px}
+    .lesson-button small{font:10px 'DM Mono';color:#73776e;letter-spacing:.06em;text-transform:uppercase}
+    .lesson-detail{background:var(--white);border:1px solid #dedacf;border-radius:12px;padding:26px;min-height:310px}
+    .lesson-detail h3{font:600 29px/1.1 'Space Grotesk';letter-spacing:-1px;margin:12px 0}
+    .lesson-detail p,.lesson-detail li{font-size:14px;line-height:1.7;color:#565b52}
+    .lesson-detail ul{padding-left:20px}
+    .lesson-takeaway{background:#eef5d2;border-radius:9px;padding:14px;font-size:13px;line-height:1.6;margin:18px 0}
+    .academy-foot{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
+    .quiz-layout{display:grid;grid-template-columns:1fr .72fr;gap:22px;align-items:start}
+    .quiz-card{background:var(--white);border:1px solid var(--line);border-radius:13px;padding:25px}
+    .quiz-options{display:grid;gap:9px;margin:18px 0}
+    .quiz-option{border:1px solid #dedacf;background:#fffefa;border-radius:9px;padding:13px;text-align:left;cursor:pointer;font-size:13px;color:var(--ink)}
+    .quiz-option:hover{border-color:#777}.quiz-option.chosen{background:#eee9ff;border-color:#9c88dc}.quiz-option:disabled{cursor:default;opacity:1}
+    .quiz-feedback{display:none;border-radius:9px;background:#f0eee7;padding:14px;font-size:13px;line-height:1.6;margin-top:14px}.quiz-feedback.show{display:block}
+    .score-panel{background:var(--purple);border-radius:13px;padding:25px}
+    .score-number{font:600 54px 'Space Grotesk';letter-spacing:-3px}
+    .resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .resource-card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;min-height:220px}
+    .resource-card h3{font:600 20px 'Space Grotesk';margin:13px 0 8px}.resource-card p{font-size:12px;line-height:1.65;color:var(--muted);flex:1}
+    .resource-card a{font:11px 'DM Mono';text-decoration:underline;text-underline-offset:3px}
+    .reflection-box{background:#eae6dc;border-radius:15px;padding:30px;display:grid;grid-template-columns:.75fr 1.25fr;gap:28px;align-items:start}
+    .reflection-box textarea{width:100%;min-height:135px;border:1px solid #d9d5ca;border-radius:9px;padding:14px;background:var(--white);font:13px 'DM Sans';resize:vertical;color:var(--ink)}
+    .reflection-saved{font:11px 'DM Mono';color:#647a28;margin-top:9px;min-height:16px}
+    .progress-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}
+    .progress-stat{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:15px}
+    .progress-stat strong{display:block;font:600 27px 'Space Grotesk'}
+    .progress-stat span{font:10px 'DM Mono';color:var(--muted);text-transform:uppercase}
+    :focus-visible{outline:3px solid #8a72d1;outline-offset:3px}
+    @media(max-width:760px){.academy-shell{padding:20px}.academy-grid,.quiz-layout,.reflection-box{grid-template-columns:1fr}.resource-grid{grid-template-columns:1fr}.progress-summary{grid-template-columns:1fr 1fr}.lesson-detail{min-height:0}}
+
   </style>
 </head>
 <body>
   <header class="wrap nav">
     <a class="logo" href="#"><span>O/</span> OFFSCRIPT</a>
-    <nav class="navlinks" aria-label="Main navigation"><a href="#learn">Explore</a><a href="#lab">Try it</a><a href="#why">Our why</a></nav>
-    <div class="navright"><span class="pill">AI LITERACY, IRL ↗</span><a class="btn" href="#learn">Start exploring</a></div>
-    <button class="menu" aria-label="Menu" onclick="document.querySelector('.navlinks').classList.toggle('mobile-open')">☰</button>
+    <nav class="navlinks" aria-label="Main navigation"><a href="#learn">Explore</a><a href="#lab">Try it</a><a href="#toolkit">Toolkit</a><a href="#academy">Academy</a><a href="#glossary">Glossary</a><a href="#resources">Resources</a></nav>
+    <div class="navright"><span class="pill" id="progress-pill">0 / 4 FIELD NOTES</span><a class="btn" href="#learn">Start exploring</a></div>
+    <button class="menu" aria-label="Menu" aria-expanded="false">☰</button>
   </header>
   <main>
     <section class="wrap hero">
@@ -99,17 +152,117 @@
           <div class="scenario-label">REAL-LIFE SCENARIO / 01</div>
           <h3>An AI tool gives you a super-confident answer.</h3>
           <p>You're using an AI chatbot for a school project. It gives you a statistic and names a study, but you haven't heard of the study before. What's your next move?</p>
-          <div class="choices">
+          <div class="scenario-count"><span id="scenario-number">SCENARIO 01 / 03</span><span id="scenario-score">0 correct</span></div>
+          <div class="choices" id="scenario-choices">
             <button class="choice" data-correct="false">A. Use it. The answer sounds specific, so it's probably reliable.</button>
             <button class="choice" data-correct="true">B. Find the original study and check whether it really supports the claim.</button>
             <button class="choice" data-correct="false">C. Ask the same chatbot if it's sure, then trust its confirmation.</button>
           </div>
           <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+          <div class="scenario-actions"><span class="tag">No grades. Just better instincts.</span><button class="mini-btn" id="next-scenario" type="button" hidden>Next scenario ↗</button></div>
         </div>
       </div>
     </section>
+    <section class="wrap tool-section" id="toolkit">
+      <div class="section-head"><div><div class="kicker">03 / YOUR AI TOOLKIT</div><h2>Make the next move<br>more intentional.</h2></div><p class="section-intro">Small tools for asking clearer questions, spotting risks, and keeping your own judgment in the loop.</p></div>
+      <div class="tool-grid">
+        <article class="tool-card" id="prompt-remix">
+          <div class="tag">TOOL 01 · PROMPT REMIXER</div><h3>Give your prompt a glow-up.</h3><p>A useful prompt explains the task, gives context, and sets boundaries. Fill in the pieces and build a clearer starting point.</p>
+          <div class="field"><label for="prompt-task">What do you want help with?</label><input id="prompt-task" placeholder="e.g. Understand photosynthesis"></div>
+          <div class="field"><label for="prompt-context">What context should the tool know?</label><textarea id="prompt-context" placeholder="e.g. I'm in 9th grade and know the basics of cells."></textarea></div>
+          <div class="field"><label for="prompt-format">What should the response look like?</label><select id="prompt-format"><option value="A short explanation with an example">Short explanation + example</option><option value="A step-by-step guide">Step-by-step guide</option><option value="A comparison table">Comparison table</option><option value="A set of practice questions, without answers first">Practice questions (no answers first)</option></select></div>
+          <button class="mini-btn" id="make-prompt" type="button">Build my prompt ↗</button><div class="result" id="prompt-result" aria-live="polite"></div><button class="mini-btn alt" id="copy-prompt" type="button" hidden>Copy prompt</button>
+          <p class="tag">This runs in your browser. It does not send anything to an AI service.</p>
+        </article>
+        <article class="tool-card" id="privacy-check">
+          <div class="tag">TOOL 02 · PRIVACY PAUSE</div><h3>Before you hit send…</h3><p>AI tools may store or process what you share. Do a quick check before putting information into a chatbot.</p>
+          <div class="check-list" id="privacy-list">
+            <label class="check-row"><input type="checkbox"> I removed passwords, access codes, and account details.</label>
+            <label class="check-row"><input type="checkbox"> I removed private information about me or someone else.</label>
+            <label class="check-row"><input type="checkbox"> I checked whether this tool is approved for this kind of information.</label>
+            <label class="check-row"><input type="checkbox"> I can explain why the tool needs the information I'm sharing.</label>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="privacy-progress"></div></div><div class="tag" id="privacy-status" aria-live="polite">0 OF 4 CHECKS COMPLETE</div>
+          <p>When in doubt, leave sensitive details out. You can usually describe a situation without identifying the people involved.</p>
+        </article>
+        <article class="tool-card" id="bias-breaker">
+          <div class="tag">TOOL 03 · BIAS BREAKER</div><h3>Step outside your feed.</h3><p>Recommendation systems learn from what people click. If a system only repeats familiar choices, it can narrow what you get to discover.</p>
+          <div class="tabs" role="group" aria-label="Recommendation setting"><button class="tab active" data-mode="narrow" type="button">More of the same</button><button class="tab" data-mode="mix" type="button">Add discovery</button></div>
+          <div class="scenario" style="box-shadow:none"><div class="scenario-label" id="feed-label">YOUR MOCK FEED · PERSONALIZED</div><h3 id="feed-title">A very familiar feed.</h3><p id="feed-copy">Because you watched three beginner coding videos, the system keeps showing similar beginner coding videos. You may miss art, design, history, or different perspectives.</p></div>
+          <p class="tag">This is a simplified illustration, not a real recommendation algorithm.</p>
+        </article>
+        <article class="tool-card" id="output-detective">
+          <div class="tag">TOOL 04 · OUTPUT DETECTIVE</div><h3>Spot the red flags.</h3><p>Read this fictional AI-generated answer. Select every concern you notice, then check your reasoning.</p>
+          <div class="scenario" style="box-shadow:none"><div class="scenario-label">SAMPLE AI ANSWER · FICTIONAL</div><p>“A 2024 university study proved that 98% of students learn twice as fast with AI. The study was led by the Global Learning Institute. Everyone should use AI for every assignment.”</p></div>
+          <div class="check-list" id="red-flag-list">
+            <label class="check-row"><input type="checkbox" value="source"> The source is vague and difficult to verify.</label>
+            <label class="check-row"><input type="checkbox" value="claim"> The statistic is precise but has no link or methodology.</label>
+            <label class="check-row"><input type="checkbox" value="overreach"> The conclusion makes a sweeping recommendation.</label>
+            <label class="check-row"><input type="checkbox" value="tone"> The answer sounds confident.</label>
+          </div>
+          <button class="mini-btn" id="check-flags" type="button">Check my detective work</button><div class="result" id="flags-result" aria-live="polite"></div>
+        </article>
+      </div>
+    </section>
+    <section class="wrap tool-section" id="glossary">
+      <div class="section-head"><div><div class="kicker">04 / THE NO-JARGON ZONE</div><h2>Words worth knowing.</h2></div><p class="section-intro">A tiny, searchable glossary. Clear explanations, no computer-science degree required.</p></div>
+      <div class="glossary-tools"><input id="glossary-search" type="search" placeholder="Search a term, like training data…" aria-label="Search glossary"><span class="tag" id="glossary-count">8 TERMS</span></div>
+      <div class="term-list" id="term-list">
+        <article class="term"><strong>Algorithm</strong><p>A set of steps or rules a computer follows to complete a task or solve a problem.</p></article>
+        <article class="term"><strong>Model</strong><p>A system trained on examples to recognize patterns and produce outputs, such as text or predictions.</p></article>
+        <article class="term"><strong>Training data</strong><p>The examples used during training to help a model learn patterns. The data influences what it can and cannot do.</p></article>
+        <article class="term"><strong>Bias</strong><p>A systematic pattern that can make an outcome unfair or less reliable for some people or situations.</p></article>
+        <article class="term"><strong>Hallucination</strong><p>When an AI system generates information that sounds plausible but is inaccurate or made up.</p></article>
+        <article class="term"><strong>Prompt</strong><p>The instructions or context a person gives an AI system to guide its response.</p></article>
+        <article class="term"><strong>Generative AI</strong><p>AI designed to create new content, such as text, images, audio, or code, based on learned patterns.</p></article>
+        <article class="term"><strong>Privacy</strong><p>Having meaningful control over personal information, including how it is collected, used, and shared.</p></article>
+      </div>
+      <p class="tag" id="no-terms" hidden>No matching terms yet. Try a different search.</p>
+    </section>
+
+    <section class="wrap tool-section" id="academy">
+      <div class="section-head"><div><div class="kicker">05 / OFFSCRIPT ACADEMY</div><h2>Learn the ideas.<br>Practice the judgment.</h2></div><p class="section-intro">A short, self-paced learning path that moves from understanding AI to evaluating its impact and making thoughtful choices.</p></div>
+      <div class="academy-shell">
+        <div class="academy-grid">
+          <div><div class="tag">YOUR LEARNING PATH · 4 FIELD NOTES</div><div class="lesson-list" id="lesson-list" style="margin-top:15px">
+            <button class="lesson-button active" data-lesson="0" type="button"><span><strong>01 · What AI learns</strong><small>Patterns, models & limits</small></span><span>↗</span></button>
+            <button class="lesson-button" data-lesson="1" type="button"><span><strong>02 · Why outputs fail</strong><small>Hallucinations & verification</small></span><span>↗</span></button>
+            <button class="lesson-button" data-lesson="2" type="button"><span><strong>03 · Who gets represented?</strong><small>Data, bias & fairness</small></span><span>↗</span></button>
+            <button class="lesson-button" data-lesson="3" type="button"><span><strong>04 · Human agency</strong><small>Privacy, consent & decisions</small></span><span>↗</span></button>
+          </div><p class="tag" style="line-height:1.6;margin-top:15px">Each lesson is designed to take about 3–5 minutes. Your completion status stays in this browser.</p></div>
+          <article class="lesson-detail" aria-live="polite">
+            <div class="tag" id="lesson-kicker">FIELD NOTE 01 / UNDERSTAND</div><h3 id="lesson-title">AI learns patterns — not meaning the way people do.</h3><div id="lesson-copy"><p>Many AI systems are trained using examples. During training, a model adjusts internal parameters to become better at producing outputs that fit patterns in its data and training objective.</p><ul><li>Training data shapes what patterns a model can learn.</li><li>A model's output depends on its design, data, and context.</li><li>Fluent language is not proof of understanding or accuracy.</li></ul></div><div class="lesson-takeaway" id="lesson-takeaway"><strong>Takeaway:</strong> Ask what a system was trained to do, what information it may be missing, and where its limits matter.</div>
+            <div class="academy-foot"><span class="tag" id="lesson-status">NOT YET COMPLETED</span><button class="mini-btn" id="complete-lesson" type="button">Mark lesson complete ✓</button></div>
+          </article>
+        </div>
+      </div>
+      <div class="progress-summary" aria-label="Learning progress summary">
+        <div class="progress-stat"><strong id="academy-complete">0/4</strong><span>Lessons complete</span></div><div class="progress-stat"><strong id="academy-quiz-score">—</strong><span>Latest quiz</span></div><div class="progress-stat"><strong id="academy-activities">0/4</strong><span>Core activities</span></div><div class="progress-stat"><strong id="academy-total">0%</strong><span>Overall progress</span></div>
+      </div>
+    </section>
+
+    <section class="wrap tool-section" id="knowledge-check">
+      <div class="section-head"><div><div class="kicker">06 / CHECK YOUR THINKING</div><h2>Knowledge is a practice.</h2></div><p class="section-intro">Five scenario-based questions. Get feedback after each answer, then revisit any lesson you want to strengthen.</p></div>
+      <div class="quiz-layout"><div class="quiz-card"><div class="tag" id="quiz-progress-label">QUESTION 1 OF 5</div><div class="progress-track"><div class="progress-fill" id="quiz-progress-fill" style="width:0%"></div></div><h3 id="quiz-question" style="font:600 24px 'Space Grotesk';margin:20px 0 8px">A chatbot provides a source that you cannot find. What is the strongest next step?</h3><div class="quiz-options" id="quiz-options"></div><div class="quiz-feedback" id="quiz-feedback" aria-live="polite"></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:16px"><button class="mini-btn alt" id="quiz-restart" type="button">Restart</button><button class="mini-btn" id="quiz-next" type="button" disabled>Next question →</button></div></div>
+      <aside class="score-panel"><div class="tag">YOUR LATEST RESULT</div><div class="score-number" id="quiz-score-big">—</div><p style="font-size:13px;line-height:1.65;color:#45404f">A score is a snapshot, not a label. Use the explanations to decide what to explore next.</p><div class="tag" id="quiz-result-note">COMPLETE THE CHECK TO SEE YOUR RESULT</div></aside></div>
+    </section>
+
+    <section class="wrap tool-section" id="reflection">
+      <div class="section-head"><div><div class="kicker">07 / MAKE IT YOURS</div><h2>Think beyond the screen.</h2></div><p class="section-intro">Learning sticks when you connect an idea to your own choices. Keep a private reflection as you explore.</p></div>
+      <div class="reflection-box"><div><div class="tag">YOUR FIELD JOURNAL</div><h3 style="font:600 27px 'Space Grotesk';margin:12px 0">One question worth keeping.</h3><p style="font-size:13px;line-height:1.65;color:#62665e">What is one situation where you would want to question an AI output instead of accepting it? What evidence would help you decide?</p><p class="tag">PRIVATE TO THIS BROWSER · NOT UPLOADED</p></div><div><textarea id="reflection-input" maxlength="1500" placeholder="Write your thoughts here…" aria-label="Your private reflection"></textarea><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px"><span class="reflection-saved" id="reflection-status" aria-live="polite">Nothing saved yet.</span><button class="mini-btn" id="save-reflection" type="button">Save reflection</button></div></div></div>
+    </section>
+
+    <section class="wrap tool-section" id="resources">
+      <div class="section-head"><div><div class="kicker">08 / GO DEEPER</div><h2>Good questions need good sources.</h2></div><p class="section-intro">A starter shelf of trusted frameworks and explainers. OffScript introduces the ideas; these resources let you investigate further.</p></div>
+      <div class="resource-grid">
+        <article class="resource-card"><div class="tag">GLOBAL EDUCATION · UNESCO</div><h3>AI competency framework for students</h3><p>A framework organized around human-centred thinking, AI ethics, AI techniques, and AI system design — with progression from understanding to creating.</p><a href="https://www.unesco.org/en/articles/ai-competency-framework-students?hub=66973" target="_blank" rel="noopener noreferrer">Explore the framework ↗</a></article>
+        <article class="resource-card"><div class="tag">TRUSTWORTHY AI · NIST</div><h3>AI Risk Management Framework</h3><p>Explore how organizations can identify, assess, and manage risks throughout the design, development, and use of AI systems.</p><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">Explore NIST's framework ↗</a></article>
+        <article class="resource-card"><div class="tag">GENERATIVE AI · NIST</div><h3>Generative AI risk profile</h3><p>A deeper look at risks that can arise from generative AI and practices organizations can use to evaluate and manage them.</p><a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence" target="_blank" rel="noopener noreferrer">Read the publication ↗</a></article>
+      </div>
+    </section>
+
     <section class="wrap section" id="why">
-      <div class="section-head"><div><div class="kicker">03 / WHY OFFSCRIPT EXISTS</div><h2>Tech should make<br>room for everyone.</h2></div><p class="section-intro">AI is shaping school, work, creativity, and everyday life. Everyone deserves the tools to understand it — not just the people building it.</p></div>
+      <div class="section-head"><div><div class="kicker">09 / WHY OFFSCRIPT EXISTS</div><h2>Tech should make<br>room for everyone.</h2></div><p class="section-intro">AI is shaping school, work, creativity, and everyday life. Everyone deserves the tools to understand it — not just the people building it.</p></div>
       <div class="impact">
         <div class="impact-box"><strong>Curiosity first.</strong><p>Ask questions without feeling like you should already know the answers. That's where learning starts.</p></div>
         <div class="impact-box"><strong>People over hype.</strong><p>Look at who benefits, who might be harmed, and whose perspective is missing.</p></div>
@@ -122,18 +275,146 @@
   </main>
   <footer class="wrap"><strong>O/ OFFSCRIPT</strong><span>AI literacy for real life.</span><span>Made for curious minds · A student-led concept</span></footer>
   <script>
-    const choices = document.querySelectorAll('.choice');
-    const feedback = document.getElementById('feedback');
-    choices.forEach(choice => choice.addEventListener('click', () => {
-      choices.forEach(c => c.classList.remove('selected'));
-      choice.classList.add('selected');
-      feedback.classList.add('show');
-      if (choice.dataset.correct === 'true') {
-        feedback.textContent = 'Exactly. AI can produce convincing but inaccurate information. Verify important claims against the original source instead of relying on confidence or a second answer from the same tool.';
-      } else {
-        feedback.textContent = 'Good instinct to pause. A confident tone is not proof, and asking the same system to verify itself is not independent confirmation. Look for the original source and check it directly.';
-      }
-    }));
+    // OffScript V2: interactive learning tools. Progress is stored only in this browser.
+    const STORAGE_KEY = 'offscript-v2-progress';
+    const readProgress = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } };
+    const progress = readProgress();
+    const completed = new Set(progress.completed || []);
+    function markComplete(id) { completed.add(id); try { localStorage.setItem(STORAGE_KEY, JSON.stringify({completed:[...completed]})); } catch {} updateProgress(); }
+    function updateProgress() {
+      const core = ['lab','privacy','bias','detective'];
+      const count = core.filter(id => completed.has(id)).length;
+      const pill = document.getElementById('progress-pill');
+      if (pill) pill.textContent = `${count} / 4 FIELD NOTES`;
+    }
+    updateProgress();
+
+    // Mobile navigation
+    const menuButton = document.querySelector('.menu');
+    menuButton.addEventListener('click', () => {
+      const nav = document.querySelector('.navlinks');
+      const open = nav.classList.toggle('mobile-open');
+      menuButton.setAttribute('aria-expanded', String(open));
+    });
+    document.querySelectorAll('.navlinks a').forEach(link => link.addEventListener('click', () => document.querySelector('.navlinks').classList.remove('mobile-open')));
+
+    // Three-question scenario lab
+    const scenarios = [
+      {title:'An AI tool gives you a super-confident answer.',prompt:'You are using an AI chatbot for a school project. It gives you a statistic and names a study, but you have not heard of the study before. What is your next move?',options:['Use it. The answer sounds specific, so it is probably reliable.','Find the original study and check whether it really supports the claim.','Ask the same chatbot if it is sure, then trust its confirmation.'],correct:1,why:'Verify important claims against the original source. A confident tone is not proof, and asking the same system to verify itself is not independent confirmation.'},
+      {title:'A chatbot asks for more personal context.',prompt:'You want help writing a message about a disagreement with a classmate. The chatbot asks you to paste the entire private conversation, including names. What is the better move?',options:['Paste everything so it has the full story.','Share a short, anonymous summary with only the details needed.','Include names, but remove the school name.'],correct:1,why:'Share the minimum information needed. Remove names and identifying details, especially when a conversation includes someone else’s private information.'},
+      {title:'An AI image looks like a real news photo.',prompt:'You see a dramatic image in a post about a current event. There is no photographer credit or original source. What should you do before sharing it?',options:['Share it with a question mark so people can decide.','Check the original source and look for independent, reliable reporting.','Assume it is real unless someone proves otherwise.'],correct:1,why:'Pause before sharing. Look for the earliest available source and independent reporting. Visuals can be edited, miscaptioned, or AI-generated.'}
+    ];
+    let scenarioIndex=0, scenarioScore=0, scenarioAnswered=false;
+    const scenarioTitle=document.querySelector('.scenario h3');
+    const scenarioPrompt=document.querySelector('.scenario .scenario-label').nextElementSibling.nextElementSibling;
+    const choicesWrap=document.getElementById('scenario-choices');
+    const feedback=document.getElementById('feedback');
+    const nextButton=document.getElementById('next-scenario');
+    function renderScenario(){
+      const item=scenarios[scenarioIndex]; scenarioAnswered=false;
+      scenarioTitle.textContent=item.title; scenarioPrompt.textContent=item.prompt;
+      document.getElementById('scenario-number').textContent=`SCENARIO 0${scenarioIndex+1} / 03`;
+      document.getElementById('scenario-score').textContent=`${scenarioScore} correct`;
+      choicesWrap.innerHTML='';
+      item.options.forEach((option,i)=>{const b=document.createElement('button');b.type='button';b.className='choice';b.textContent=String.fromCharCode(65+i)+'. '+option;b.addEventListener('click',()=>answerScenario(i,b));choicesWrap.appendChild(b);});
+      feedback.classList.remove('show');feedback.textContent='';nextButton.hidden=true;
+      nextButton.textContent=scenarioIndex===scenarios.length-1?'Finish lab ✓':'Next scenario ↗';
+    }
+    function answerScenario(index,button){
+      if(scenarioAnswered)return;scenarioAnswered=true;const item=scenarios[scenarioIndex];
+      [...choicesWrap.children].forEach((b,i)=>{b.disabled=true;if(i===item.correct)b.classList.add('selected');});
+      if(index===item.correct)scenarioScore++;
+      feedback.textContent=(index===item.correct?'That’s it. ':'Good attempt. ')+item.why;
+      feedback.classList.add('show');document.getElementById('scenario-score').textContent=`${scenarioScore} correct`;
+      nextButton.hidden=false;
+    }
+    nextButton.addEventListener('click',()=>{if(scenarioIndex<scenarios.length-1){scenarioIndex++;renderScenario();}else{feedback.textContent=`Lab complete: ${scenarioScore} out of 3. The goal is not perfection — it is building the habit of pausing, checking, and thinking critically.`;feedback.classList.add('show');nextButton.hidden=true;markComplete('lab');}});
+    renderScenario();
+
+    // Prompt remixer: creates a reusable prompt locally; no AI call is made.
+    const promptResult=document.getElementById('prompt-result');
+    document.getElementById('make-prompt').addEventListener('click',()=>{
+      const task=document.getElementById('prompt-task').value.trim();
+      const context=document.getElementById('prompt-context').value.trim();
+      const format=document.getElementById('prompt-format').value;
+      if(!task){promptResult.textContent='Add a task first so your prompt has a clear goal.';promptResult.classList.add('show');return;}
+      promptResult.textContent=`Help me with this task: ${task}.
+
+Context: ${context||'Ask me for any essential context before making assumptions.'}
+
+Please respond in this format: ${format}.
+
+If something is uncertain, say so. Explain important reasoning and do not invent sources or facts.`;
+      promptResult.classList.add('show');document.getElementById('copy-prompt').hidden=false;markComplete('prompt');
+    });
+    document.getElementById('copy-prompt').addEventListener('click',async()=>{
+      try{await navigator.clipboard.writeText(promptResult.textContent);document.getElementById('copy-prompt').textContent='Copied ✓';}
+      catch{document.getElementById('copy-prompt').textContent='Select the text to copy';}
+    });
+
+    // Privacy checklist
+    const privacyChecks=[...document.querySelectorAll('#privacy-list input')];
+    function updatePrivacy(){const n=privacyChecks.filter(x=>x.checked).length;document.getElementById('privacy-progress').style.width=(n/privacyChecks.length*100)+'%';document.getElementById('privacy-status').textContent=`${n} OF 4 CHECKS COMPLETE`;if(n===4)markComplete('privacy');}
+    privacyChecks.forEach(x=>x.addEventListener('change',updatePrivacy));
+
+    // Recommendation feed toggle
+    const feedModes={narrow:{label:'YOUR MOCK FEED · PERSONALIZED',title:'A very familiar feed.',copy:'Because you watched three beginner coding videos, the system keeps showing similar beginner coding videos. You may miss art, design, history, or different perspectives.'},mix:{label:'YOUR MOCK FEED · MORE VARIETY',title:'Room for discovery.',copy:'The system still includes topics you enjoy, but also makes room for new subjects and viewpoints. More variety can help you discover interests you would not have searched for yourself.'}};
+    document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t===tab));const m=feedModes[tab.dataset.mode];document.getElementById('feed-label').textContent=m.label;document.getElementById('feed-title').textContent=m.title;document.getElementById('feed-copy').textContent=m.copy;markComplete('bias');}));
+
+    // Output detective: confidence alone is not a red flag; missing evidence and overreach are.
+    document.getElementById('check-flags').addEventListener('click',()=>{
+      const selected=[...document.querySelectorAll('#red-flag-list input:checked')].map(x=>x.value);
+      const expected=['source','claim','overreach'];
+      const correct=expected.filter(x=>selected.includes(x)).length;
+      const extra=selected.includes('tone');
+      let msg=`You spotted ${correct} of 3 key concerns.`;
+      msg+=' The key issues are the vague source, an unsupported statistic, and a recommendation that overgeneralizes.';
+      msg+=' A confident tone alone is not evidence that a claim is wrong — check the support behind it.';
+      if(extra)msg+=' You selected confidence as a red flag; confidence is a reason to verify, not proof of inaccuracy.';
+      document.getElementById('flags-result').textContent=msg;document.getElementById('flags-result').classList.add('show');
+      if(expected.every(x=>selected.includes(x))&&!extra)markComplete('detective');
+    });
+
+    // Searchable glossary
+    const glossaryInput=document.getElementById('glossary-search');
+    const terms=[...document.querySelectorAll('.term')];
+    glossaryInput.addEventListener('input',()=>{const q=glossaryInput.value.trim().toLowerCase();let count=0;terms.forEach(term=>{const show=term.textContent.toLowerCase().includes(q);term.hidden=!show;if(show)count++;});document.getElementById('glossary-count').textContent=`${count} TERM${count===1?'':'S'}`;document.getElementById('no-terms').hidden=count!==0;if(q&&count)markComplete('glossary');});
+
+
+    // OffScript Academy V3: lesson completion, knowledge check, and private local reflection.
+    const academyLessons = [
+      {kicker:'FIELD NOTE 01 / UNDERSTAND',title:'AI learns patterns — not meaning the way people do.',html:'<p>Many AI systems are trained using examples. During training, a model adjusts internal parameters to become better at producing outputs that fit patterns in its data and training objective.</p><ul><li>Training data shapes what patterns a model can learn.</li><li>A model’s output depends on its design, data, and context.</li><li>Fluent language is not proof of understanding or accuracy.</li></ul>',takeaway:'Ask what a system was trained to do, what information it may be missing, and where its limits matter.'},
+      {kicker:'FIELD NOTE 02 / EVALUATE',title:'A plausible answer can still be wrong.',html:'<p>Generative AI can produce confident, well-structured statements that contain errors. This is sometimes called a hallucination. The right response depends on the stakes of the task.</p><ul><li>Trace important claims to original sources.</li><li>Check whether a cited source exists and actually supports the claim.</li><li>Use independent, reliable sources for consequential decisions.</li></ul>',takeaway:'Treat AI output as a starting point for investigation, not as evidence by itself.'},
+      {kicker:'FIELD NOTE 03 / QUESTION',title:'Data choices shape who an AI system serves.',html:'<p>Bias can enter through data collection, labels, design choices, deployment settings, and the way people use a system. A model can perform well on average while working less reliably for a particular group or context.</p><ul><li>Ask who is represented in the data and who is missing.</li><li>Look beyond one overall accuracy number.</li><li>Include affected communities when evaluating impacts.</li></ul>',takeaway:'Fairness is not solved by a single technical adjustment. It requires context, evaluation, and accountability.'},
+      {kicker:'FIELD NOTE 04 / APPLY',title:'Keep people in control of meaningful decisions.',html:'<p>Responsible AI use includes privacy, consent, transparency, and human agency. The more consequential a decision, the more important it is to understand limitations and ensure meaningful human review.</p><ul><li>Share only the information needed for the task.</li><li>Consider whether other people consented to having their information shared.</li><li>Do not outsource high-stakes decisions to an automated output.</li></ul>',takeaway:'Use AI to support human judgment — not to quietly replace responsibility.'}
+    ];
+    let activeLesson=0;
+    const lessonDone=new Set((progress.lessons||[]));
+    function renderLesson(){const item=academyLessons[activeLesson];document.getElementById('lesson-kicker').textContent=item.kicker;document.getElementById('lesson-title').textContent=item.title;document.getElementById('lesson-copy').innerHTML=item.html;document.getElementById('lesson-takeaway').innerHTML='<strong>Takeaway:</strong> '+item.takeaway;document.querySelectorAll('.lesson-button').forEach((b,i)=>{b.classList.toggle('active',i===activeLesson);b.setAttribute('aria-pressed',String(i===activeLesson));});const done=lessonDone.has(activeLesson);document.getElementById('lesson-status').textContent=done?'COMPLETED ✓':'NOT YET COMPLETED';document.getElementById('complete-lesson').textContent=done?'Completed ✓':'Mark lesson complete ✓';document.getElementById('complete-lesson').disabled=done;}
+    function saveAcademy(){try{const current=readProgress();localStorage.setItem(STORAGE_KEY,JSON.stringify({...current,completed:[...completed],lessons:[...lessonDone]}));}catch{}}
+    function updateAcademyStats(){const n=lessonDone.size;const core=['lab','privacy','bias','detective'].filter(x=>completed.has(x)).length;document.getElementById('academy-complete').textContent=n+'/4';document.getElementById('academy-activities').textContent=core+'/4';const quiz=readProgress().quizLatest;document.getElementById('academy-quiz-score').textContent=quiz==null?'—':quiz+'/5';const total=Math.round((n+core+(quiz==null?0:Math.min(quiz/5,1)))/9*100);document.getElementById('academy-total').textContent=total+'%';}
+    document.querySelectorAll('.lesson-button').forEach(b=>b.addEventListener('click',()=>{activeLesson=Number(b.dataset.lesson);renderLesson();}));
+    document.getElementById('complete-lesson').addEventListener('click',()=>{lessonDone.add(activeLesson);saveAcademy();renderLesson();updateAcademyStats();});
+    renderLesson();updateAcademyStats();
+
+    const knowledgeQuestions=[
+      {q:'A chatbot provides a source you cannot find. What is the strongest next step?',o:['Ask the chatbot to repeat the citation.','Search for the original source and verify the claim.','Use the citation if it looks professionally formatted.'],a:1,e:'A citation is only useful if the source exists and supports the statement. Verify it independently.'},
+      {q:'A model has high overall accuracy but performs poorly for one group. What does this show?',o:['The overall score tells the whole story.','The system may have uneven performance that needs investigation.','The group should adapt to the system.'],a:1,e:'Aggregate metrics can hide differences. Evaluate performance across relevant groups and contexts.'},
+      {q:'You want help summarizing a private group chat. What is the better approach?',o:['Paste the full chat with names.','Share only a minimal, anonymized summary if appropriate.','Upload screenshots because they preserve context.'],a:1,e:'Minimize personal information and consider the privacy and consent of everyone in the conversation.'},
+      {q:'Which statement about generative AI is most accurate?',o:['It always retrieves verified facts.','It generates outputs based on learned patterns and can make mistakes.','A confident tone means it has checked its answer.'],a:1,e:'Generative systems can produce plausible but inaccurate content. Important claims still need verification.'},
+      {q:'When should human review be especially important?',o:['When an output affects an important opportunity or decision.','Only when the AI response is badly written.','Never, if the model has been tested.'],a:0,e:'Consequential decisions call for accountability, context, and meaningful human oversight.'}
+    ];
+    let quizIndex=0,quizScore=0,quizAnswered=false;
+    function renderQuiz(){const q=knowledgeQuestions[quizIndex];quizAnswered=false;document.getElementById('quiz-progress-label').textContent=`QUESTION ${quizIndex+1} OF ${knowledgeQuestions.length}`;document.getElementById('quiz-progress-fill').style.width=(quizIndex/knowledgeQuestions.length*100)+'%';document.getElementById('quiz-question').textContent=q.q;const wrap=document.getElementById('quiz-options');wrap.innerHTML='';q.o.forEach((option,i)=>{const b=document.createElement('button');b.type='button';b.className='quiz-option';b.textContent=String.fromCharCode(65+i)+'. '+option;b.addEventListener('click',()=>answerQuiz(i));wrap.appendChild(b);});document.getElementById('quiz-feedback').classList.remove('show');document.getElementById('quiz-feedback').textContent='';document.getElementById('quiz-next').disabled=true;document.getElementById('quiz-next').textContent=quizIndex===knowledgeQuestions.length-1?'See results →':'Next question →';}
+    function answerQuiz(i){if(quizAnswered)return;quizAnswered=true;const q=knowledgeQuestions[quizIndex];if(i===q.a)quizScore++;document.querySelectorAll('.quiz-option').forEach((b,j)=>{b.disabled=true;if(j===q.a)b.classList.add('chosen');});const f=document.getElementById('quiz-feedback');f.textContent=(i===q.a?'Correct. ':'Good attempt. ')+q.e;f.classList.add('show');document.getElementById('quiz-next').disabled=false;document.getElementById('quiz-progress-fill').style.width=((quizIndex+1)/knowledgeQuestions.length*100)+'%';}
+    document.getElementById('quiz-next').addEventListener('click',()=>{if(!quizAnswered)return;if(quizIndex<knowledgeQuestions.length-1){quizIndex++;renderQuiz();return;}document.getElementById('quiz-question').textContent='Knowledge check complete.';document.getElementById('quiz-options').innerHTML='';document.getElementById('quiz-feedback').textContent=`You answered ${quizScore} of 5 questions correctly. ${quizScore>=4?'Strong work — keep practicing how you apply these ideas.':'Review the explanations and lessons, then try again. The goal is thoughtful judgment, not memorization.'}`;document.getElementById('quiz-feedback').classList.add('show');document.getElementById('quiz-next').disabled=true;document.getElementById('quiz-score-big').textContent=quizScore+'/5';document.getElementById('quiz-result-note').textContent=quizScore>=4?'SOLID FOUNDATION':'ROOM TO GROW — TRY AGAIN';const old=readProgress();try{localStorage.setItem(STORAGE_KEY,JSON.stringify({...old,completed:[...completed],lessons:[...lessonDone],quizLatest:quizScore,quizBest:Math.max(old.quizBest||0,quizScore)}));}catch{}updateAcademyStats();});
+    document.getElementById('quiz-restart').addEventListener('click',()=>{quizIndex=0;quizScore=0;renderQuiz();document.getElementById('quiz-score-big').textContent='—';document.getElementById('quiz-result-note').textContent='COMPLETE THE CHECK TO SEE YOUR RESULT';});
+    renderQuiz();
+
+    const reflectionInput=document.getElementById('reflection-input');
+    try{const saved=localStorage.getItem('offscript-v3-reflection');if(saved){reflectionInput.value=saved;document.getElementById('reflection-status').textContent='Your last reflection is saved on this device.';}}catch{}
+    document.getElementById('save-reflection').addEventListener('click',()=>{try{localStorage.setItem('offscript-v3-reflection',reflectionInput.value);document.getElementById('reflection-status').textContent=reflectionInput.value.trim()?'Saved on this device ✓':'Your reflection is empty; nothing to save.';}catch{document.getElementById('reflection-status').textContent='Your browser could not save this reflection.';}});
+
   </script>
 </body>
 </html>
